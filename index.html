@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MY AI LIFE | AI와 함께 살아보는 또 하나의 인생</title>
+  <meta name="description" content="AI가 계산한 극효율과 인간의 가치관이 교차하는 인생 시뮬레이션 게임">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       1. 헤더 및 전역 HUD (Global Header & HUD)
+       ========================================== -->
+  <header class="app-header">
+    <div class="brand-logo">
+      <div class="logo-icon">🧬</div>
+      <h1 class="brand-title">MY AI LIFE</h1>
+    </div>
+
+    <!-- 스탯 및 타임라인 HUD -->
+    <div class="hud-container" id="global-hud">
+      <div class="timeline-pill">
+        <span id="hud-stage-indicator">10대</span>
+        <span>•</span>
+        <span id="hud-age-indicator">17세</span>
+      </div>
+
+      <div class="status-meters">
+        <!-- MONEY -->
+        <div class="meter-item">
+          <div class="meter-label">
+            <span>💰 돈</span>
+            <span id="meter-val-money">30</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill money" id="meter-fill-money" style="width: 30%;"></div>
+          </div>
+        </div>
+
+        <!-- CAREER -->
+        <div class="meter-item">
+          <div class="meter-label">
+            <span>💼 커리어</span>
+            <span id="meter-val-career">10</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill career" id="meter-fill-career" style="width: 10%;"></div>
+          </div>
+        </div>
+
+        <!-- SKILL -->
+        <div class="meter-item">
+          <div class="meter-label">
+            <span>📚 역량</span>
+            <span id="meter-val-skill">30</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill skill" id="meter-fill-skill" style="width: 30%;"></div>
+          </div>
+        </div>
+
+        <!-- RELATION -->
+        <div class="meter-item">
+          <div class="meter-label">
+            <span>🤝 관계</span>
+            <span id="meter-val-relation">60</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill relation" id="meter-fill-relation" style="width: 60%;"></div>
+          </div>
+        </div>
+
+        <!-- TIME -->
+        <div class="meter-item">
+          <div class="meter-label">
+            <span>⏳ 시간</span>
+            <span id="meter-val-time">70</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill time" id="meter-fill-time" style="width: 70%;"></div>
+          </div>
+        </div>
+
+        <!-- LIFE -->
+        <div class="meter-item">
+          <div class="meter-label">
+            <span>🌱 삶/자유</span>
+            <span id="meter-val-life">65</span>
+          </div>
+          <div class="meter-track">
+            <div class="meter-fill life" id="meter-fill-life" style="width: 65%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       2. 메인 뷰 래퍼 (Main Wrapper)
+       ========================================== -->
+  <main class="main-wrapper">
+
+    <!-- SCREEN 1: 온보딩 / 시작 화면 -->
+    <section class="screen-section active" id="start-screen">
+      <div class="intro-hero">
+        <span class="hero-tag">AI-POWERED LIFE SIMULATION</span>
+        <h2 class="hero-title">AI가 계산한 <span>가장 효율적인 인생</span>과<br>당신이 원하는 인생은 같은가?</h2>
+        <p class="hero-desc">
+          10대부터 50대까지 인생의 중대한 순간마다 AI는 극효율 경로를 조언합니다.<br>
+          데이터를 확인하고, 갈등하고, 스스로 결정하세요. 모든 선택은 미래의 나비효과가 됩니다.
+        </p>
+
+        <div class="glass-panel start-action-card">
+          <h3 style="font-size: 1.2rem; margin-bottom: 8px;">시작할 인생의 시점을 선택하세요</h3>
+          <p style="font-size: 0.9rem; color: var(--text-sub);">어느 연령대를 선택해도 하나의 연속된 Life Timeline으로 이어집니다.</p>
+
+          <div class="age-selector-grid">
+            <button class="age-btn selected" data-start-index="0">10대 (17세)</button>
+            <button class="age-btn" data-start-index="1">20대 (26세)</button>
+            <button class="age-btn" data-start-index="2">30대 (34세)</button>
+            <button class="age-btn" data-start-index="3">40대 (45세)</button>
+            <button class="age-btn" data-start-index="4">50대 (56세)</button>
+          </div>
+
+          <button class="btn-primary-large" id="btn-start-game">인생 시뮬레이션 시작</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: 메인 게임플레이 화면 -->
+    <section class="screen-section" id="play-screen">
+      <div class="play-layout">
+        
+        <!-- 좌측: 시나리오 & 1차 선택지 -->
+        <div class="play-stage">
+          <div class="glass-panel scenario-card">
+            <div class="scenario-header">
+              <span class="scenario-age-tag" id="scenario-age-badge">10대 • 17세</span>
+              <span style="font-size: 0.85rem; color: var(--text-muted);">사건 딜레마</span>
+            </div>
+
+            <h3 class="scenario-title" id="scenario-title-text">진로의 첫 갈림길: 꿈인가 안정인가</h3>
+            <p class="scenario-situation" id="scenario-situation-text">
+              고등학교 2학년입니다. 성적은 중상위권이며 디지털 콘텐츠와 영상 제작에 깊은 열정을 느끼고 있습니다...
+            </p>
+
+            <!-- AI 극효율 권고 박스 -->
+            <div class="ai-recommendation-box" id="ai-recommendation-container">
+              <span class="ai-box-badge">AI RECOMMENDATION</span>
+              <div class="ai-box-title">
+                <span>🤖 AI의 극효율 권고 분석</span>
+              </div>
+              <p class="ai-box-desc" id="ai-rationale-text">
+                현재 조건에서 취업 안정성과 예상 소득을 우선하면 안정적 전공 진학이 합리적입니다.
+              </p>
+            </div>
+
+            <!-- 1차 선택지 버튼 컨테이너 -->
+            <div class="options-container" id="options-buttons-list">
+              <!-- JS에서 동적 렌더링 -->
+            </div>
+          </div>
+        </div>
+
+        <!-- 우측: AI 파트너 & 나비효과 사이드바 -->
+        <aside class="sidebar-panel">
+          
+          <!-- AI 파트너 위젯 -->
+          <div class="glass-panel ai-partner-card">
+            <div class="ai-avatar" id="ai-avatar-icon">🤖</div>
+            <div class="ai-name" id="ai-persona-name">The Optimizer</div>
+            <div class="ai-tagline" id="ai-persona-tagline">데이터 기반 극효율 분석관</div>
+            <div class="ai-dialog-box" id="ai-dialog-text">
+              "당신의 조건을 입력받았습니다. 가장 확률 높은 성공 경로를 제시하겠습니다."
+            </div>
+          </div>
+
+          <!-- 나비효과 발동 위젯 -->
+          <div class="glass-panel butterfly-widget">
+            <div class="butterfly-header">
+              <span>🦋 발동된 나비효과</span>
+            </div>
+            <div class="butterfly-list" id="butterfly-events-list">
+              <div style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:10px;">
+                과거의 선택들이 미래의 순간을 기다리고 있습니다.
+              </div>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- SCREEN 3: 엔딩 및 패러럴 라이프 비교 화면 -->
+    <section class="screen-section" id="report-screen">
+      <div class="report-hero">
+        <span class="hero-tag">LIFE SIMULATION COMPLETE</span>
+        <h2>MY LIFE REPORT</h2>
+        <p style="color: var(--text-sub); font-size: 1.1rem;">당신이 살아온 또 하나의 인생과 선택의 궤적</p>
+      </div>
+
+      <!-- 통계 서머리 -->
+      <div class="stats-summary-grid">
+        <div class="glass-panel stat-summary-card">
+          <div class="stat-summary-num" id="stat-ai-acceptance">50%</div>
+          <div class="stat-summary-title">AI 권고 수용률</div>
+        </div>
+        <div class="glass-panel stat-summary-card">
+          <div class="stat-summary-num" id="stat-ai-rejection">50%</div>
+          <div class="stat-summary-title">AI 권고 거절률</div>
+        </div>
+        <div class="glass-panel stat-summary-card">
+          <div class="stat-summary-num" id="stat-fact-change">33%</div>
+          <div class="stat-summary-title">FACT CARD 확인 후 번복률</div>
+        </div>
+      </div>
+
+      <!-- 듀얼 평행우주 비교: My Life vs AI Life -->
+      <div class="parallel-comparison-grid">
+        <!-- MY LIFE (내 선택) -->
+        <div class="glass-panel comparison-column">
+          <div class="column-header">
+            <span class="column-title">🌱 MY LIFE (내가 살아온 인생)</span>
+            <span class="column-badge badge-my-life">나의 선택 결과</span>
+          </div>
+          <div id="my-life-metrics">
+            <!-- JS 렌더링 -->
+          </div>
+        </div>
+
+        <!-- AI LIFE (AI 권고 100% 선택) -->
+        <div class="glass-panel comparison-column">
+          <div class="column-header">
+            <span class="column-title">🤖 AI LIFE (AI 권고 100% 인생)</span>
+            <span class="column-badge badge-ai-life">극효율 최적화 결과</span>
+          </div>
+          <div id="ai-life-metrics">
+            <!-- JS 렌더링 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 가치관 프로파일 결과 -->
+      <div class="glass-panel values-radar-card">
+        <h3 style="font-size: 1.2rem; margin-bottom: 4px;">📊 AI가 발견한 당신의 내면 가치관</h3>
+        <p style="font-size: 0.88rem; color: var(--text-sub);">게임을 진행하며 당신이 내린 선택들의 누적 가중치 분석 결과입니다.</p>
+        <div class="values-grid" id="values-profile-grid">
+          <!-- JS 렌더링 -->
+        </div>
+      </div>
+
+      <!-- 2. YOUR LIFE TIMELINE (가로형 인터랙티브 타임라인 & 나비효과 인스펙터) -->
+      <div class="glass-panel timeline-section-card" id="timeline-section">
+        <div class="timeline-header">
+          <span class="timeline-badge">⏳ INTERACTIVE TIMELINE</span>
+          <h3 class="timeline-main-title">YOUR LIFE TIMELINE</h3>
+          <p style="font-size: 0.88rem; color: var(--text-sub);">각 연령별 노드를 클릭하면 AI 권고와 실제 선택, 그리고 발동된 나비효과의 인과관계를 확인할 수 있습니다.</p>
+        </div>
+
+        <!-- 가로형 노드 트랙 -->
+        <div class="horizontal-timeline-track" id="horizontal-timeline-track">
+          <!-- JS에서 노드 렌더링 -->
+        </div>
+
+        <!-- 클릭된 노드의 나비효과 인스펙터 카드 -->
+        <div class="timeline-inspector-card" id="timeline-inspector-card">
+          <!-- JS에서 동적 렌더링 -->
+        </div>
+      </div>
+
+      <!-- MY LIFE STORY: 한 편의 이야기로 읽는 나의 인생 서사 -->
+      <div class="glass-panel life-story-card" id="life-story-section">
+        <div class="story-header">
+          <span class="story-badge">📖 MY LIFE STORY</span>
+          <h3 class="story-main-title">당신이 살아온 또 하나의 인생</h3>
+        </div>
+        
+        <div class="story-timeline-list" id="story-timeline-list">
+          <!-- JS에서 연령별 서사 문장 렌더링 -->
+        </div>
+
+        <div class="story-ai-divergence" id="story-ai-divergence">
+          <!-- AI 권고와의 괴리 요약 -->
+        </div>
+
+        <div class="story-conclusion" id="story-conclusion">
+          <!-- 결말 서사 문장 -->
+        </div>
+      </div>
+
+      <!-- 3. ONE LIFE SOURCE : OSMU 콘텐츠 스튜디오 -->
+      <div class="glass-panel osmu-studio-card" id="osmu-studio-section">
+        <div class="osmu-header">
+          <span class="osmu-badge">🎨 ONE LIFE SOURCE : OSMU PIPELINE</span>
+          <h3 class="osmu-main-title">플레이어가 만든 인생 = 단 하나의 원천 콘텐츠</h3>
+          <p style="font-size: 0.9rem; color: var(--text-sub);">이 한 번의 플레이로 웹툰 콘티, 60초 숏폼 영상 대본, AI 평행우주 리포트가 자동 생성되었습니다.</p>
+        </div>
+
+        <!-- OSMU 탭 버튼 -->
+        <div class="osmu-tabs">
+          <button class="osmu-tab-btn active" data-tab="webtoon">🎬 웹툰 콘티 (Webtoon Cuts)</button>
+          <button class="osmu-tab-btn" data-tab="shorts">📱 60초 숏폼 대본 (Shorts Script)</button>
+        </div>
+
+        <!-- 웹툰 콘티 뷰 -->
+        <div class="osmu-tab-content active" id="osmu-content-webtoon">
+          <div class="webtoon-cuts-grid" id="webtoon-cuts-container">
+            <!-- JS 렌더링 -->
+          </div>
+        </div>
+
+        <!-- 숏폼 대본 뷰 -->
+        <div class="osmu-tab-content" id="osmu-content-shorts">
+          <div class="shorts-script-list" id="shorts-script-container">
+            <!-- JS 렌더링 -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 엔딩 메시지 및 철학적 질문 -->
+      <div class="final-question-box">
+        <p class="final-quote">
+          "처음에는 가장 효율적인 계산을 찾았습니다.<br>
+          하지만 당신의 선택을 지켜보며 알게 되었습니다. 효율적인 삶과 당신이 원하는 삶은 항상 같지 않았습니다."
+        </p>
+        <p class="final-subquote">다시 처음으로 돌아간다면, 같은 선택을 하시겠습니까?</p>
+      </div>
+
+      <div class="report-actions">
+        <button class="btn-primary-large" id="btn-restart-game">새로운 인생 다시 시작하기</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       3. 팩트 카드 & 재고(Rethink) 오버레이 모달
+       ========================================== -->
+  <div class="modal-backdrop" id="fact-modal-backdrop">
+    <div class="fact-modal-content">
+      <div class="fact-card-header">
+        <span class="fact-badge" id="modal-fact-badge">FACT CARD</span>
+        <span style="font-size: 0.85rem; color: var(--text-sub);">실제 현실 데이터</span>
+      </div>
+
+      <h3 class="fact-title" id="modal-fact-title">전공별 취업률 및 현실 통계</h3>
+
+      <div class="fact-stat-highlight" id="modal-fact-highlight">
+        💡 핵심 지표: 이공/상경계열 평균 취업률 74.8%
+      </div>
+
+      <div class="fact-stat-risk" id="modal-fact-risk">
+        ⚠️ 내재 리스크: 직무 불만족 및 번아웃 비율 43.2%
+      </div>
+
+      <div class="fact-insight" id="modal-fact-insight">
+        통계적 현실은 안전성을 보여주지만 개인의 적성과 흥미가 배제될 경우 장기 만족도가 급감합니다.
+      </div>
+
+      <div class="rethink-prompt" id="modal-rethink-prompt">
+        선택: [안정적인 전공 진학]<br>현실 데이터를 확인했습니다. 그래도 이 선택을 유지하시겠습니까?
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-maintain-choice" id="btn-maintain-choice">✓ 선택 유지 (확정)</button>
+        <button class="btn-change-choice" id="btn-change-choice">↺ 다시 생각하기 (변경)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 메인 스크립트 모듈 로드 -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
