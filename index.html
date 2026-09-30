@@ -302,6 +302,7 @@
         <div class="osmu-tabs">
           <button class="osmu-tab-btn active" data-tab="webtoon">🎬 웹툰 콘티 (Webtoon Cuts)</button>
           <button class="osmu-tab-btn" data-tab="shorts">📱 60초 숏폼 대본 (Shorts Script)</button>
+          <button class="osmu-tab-btn" data-tab="googlevids">✨ Google Vids AI 비디오 생성</button>
         </div>
 
         <!-- 웹툰 콘티 뷰 -->
@@ -315,6 +316,39 @@
         <div class="osmu-tab-content" id="osmu-content-shorts">
           <div class="shorts-script-list" id="shorts-script-container">
             <!-- JS 렌더링 -->
+          </div>
+        </div>
+
+        <!-- Google Vids AI 비디오 생성 뷰 -->
+        <div class="osmu-tab-content" id="osmu-content-googlevids">
+          <div class="googlevids-integration-card">
+            <div class="vids-banner">
+              <div class="vids-logo-title">
+                <span class="vids-icon">🎬</span>
+                <div>
+                  <h4 class="vids-title">Google Vids 원클릭 숏폼 생성 어시스턴트</h4>
+                  <p class="vids-desc">Google Workspace의 AI 비디오 도구(Google Vids)에 최적화된 프롬프트와 씬(Scene) 정보가 생성되었습니다.</p>
+                </div>
+              </div>
+              <div class="vids-action-buttons">
+                <button class="btn-copy-vids-prompt" id="btn-copy-vids-prompt">📋 프롬프트 복사</button>
+                <a href="https://vids.google.com" target="_blank" rel="noopener noreferrer" class="btn-open-vids">🚀 Google Vids 열기 ➔</a>
+              </div>
+            </div>
+
+            <div class="vids-guide-box">
+              <strong>💡 Google Vids에서 영상 만드는 3단계:</strong>
+              <ol style="margin: 6px 0 0 18px; padding: 0; font-size: 0.85rem; color: var(--text-sub); line-height: 1.6;">
+                <li><strong>[📋 프롬프트 복사]</strong> 버튼을 누릅니다.</li>
+                <li><strong>[🚀 Google Vids 열기]</strong>를 눌러 Google Vids 웹페이지로 이동합니다.</li>
+                <li><strong>'Help me create a video'</strong> 입력창에 복사한 프롬프트를 붙여넣기(Ctrl+V)하면 AI 보이스오버 및 숏폼 영상이 즉시 자동 생성됩니다!</li>
+              </ol>
+            </div>
+
+            <div class="vids-prompt-preview-wrap">
+              <div class="preview-label">생성된 Google Vids 전용 프롬프트 전문 (미리보기)</div>
+              <pre class="vids-prompt-code" id="vids-prompt-preview-text"><!-- JS에서 주입 --></pre>
+            </div>
           </div>
         </div>
       </div>

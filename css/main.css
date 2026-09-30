@@ -1483,3 +1483,140 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Google Vids 원클릭 숏폼 생성 어시스턴트 스타일
+   ========================================================================== */
+.googlevids-integration-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(7, 10, 18, 0.7);
+  border: 1px solid rgba(66, 133, 244, 0.35);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 20px rgba(66, 133, 244, 0.1);
+}
+
+.vids-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: linear-gradient(135deg, rgba(66, 133, 244, 0.15), rgba(157, 78, 221, 0.15));
+  border: 1px solid rgba(66, 133, 244, 0.4);
+  border-radius: 12px;
+  padding: 18px 22px;
+}
+
+.vids-logo-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.vids-icon {
+  font-size: 2.2rem;
+  background: rgba(66, 133, 244, 0.2);
+  border-radius: 12px;
+  padding: 8px 10px;
+  border: 1px solid rgba(66, 133, 244, 0.4);
+}
+
+.vids-title {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+
+.vids-desc {
+  font-size: 0.85rem;
+  color: #94A3B8;
+}
+
+.vids-action-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-copy-vids-prompt {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-copy-vids-prompt:hover {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4);
+}
+
+.btn-open-vids {
+  background: rgba(255, 255, 255, 0.08);
+  color: #38BDF8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.btn-open-vids:hover {
+  background: rgba(56, 189, 248, 0.2);
+  color: #FFFFFF;
+  border-color: #38BDF8;
+  transform: translateY(-2px);
+}
+
+.vids-guide-box {
+  background: rgba(15, 23, 42, 0.6);
+  border-left: 3px solid #38BDF8;
+  border-radius: 8px;
+  padding: 14px 18px;
+}
+
+.vids-prompt-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preview-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #A78BFA;
+}
+
+.vids-prompt-code {
+  background: #090D16;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: #E2E8F0;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 280px;
+  overflow-y: auto;
+}
+

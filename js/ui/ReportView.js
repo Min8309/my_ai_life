@@ -178,7 +178,33 @@ export class ReportView {
       `).join('');
     }
 
-    // 3. 탭 전환 이벤트 바인딩
+    // 3. Google Vids 프롬프트 렌더링 및 복사 이벤트 바인딩
+    const vidsPromptEl = document.getElementById('vids-prompt-preview-text');
+    const copyBtn = document.getElementById('btn-copy-vids-prompt');
+    if (vidsPromptEl && osmu.googleVidsPrompt) {
+      vidsPromptEl.textContent = osmu.googleVidsPrompt;
+    }
+
+    if (copyBtn && osmu.googleVidsPrompt) {
+      copyBtn.onclick = () => {
+        navigator.clipboard.writeText(osmu.googleVidsPrompt).then(() => {
+          const originalText = copyBtn.innerHTML;
+          copyBtn.innerHTML = '✅ 프롬프트 복사 완료!';
+          copyBtn.style.background = '#10B981';
+          copyBtn.style.color = '#FFFFFF';
+          setTimeout(() => {
+            copyBtn.innerHTML = originalText;
+            copyBtn.style.background = '';
+            copyBtn.style.color = '';
+          }, 2500);
+        }).catch(err => {
+          console.error('클립보드 복사 실패:', err);
+          alert('프롬프트 복사에 실패했습니다. 텍스트를 직접 드래그하여 복사해 주세요.');
+        });
+      };
+    }
+
+    // 4. 탭 전환 이벤트 바인딩
     const tabBtns = document.querySelectorAll('.osmu-tab-btn');
     const tabContents = document.querySelectorAll('.osmu-tab-content');
 

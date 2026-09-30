@@ -438,10 +438,55 @@ export class LifeEngine {
       }
     ];
 
+    // 3. Google Vids 비디오 생성 전용 프롬프트 생성
+    const googleVidsPrompt = this.generateGoogleVidsPrompt(timeline, story);
+
     return {
       webtoonCuts,
-      shortsScript
+      shortsScript,
+      googleVidsPrompt
     };
+  }
+
+  /**
+   * Google Vids (Help me create a video) 맞춤형 프롬프트 생성기
+   */
+  generateGoogleVidsPrompt(timeline, story) {
+    const scenesText = timeline.map((item, idx) => {
+      const rec = item.aiRecommendation.label.split('(')[0].trim();
+      const choice = item.finalChoice.label.split('(')[0].trim();
+      return `Scene ${idx + 2} (${item.age}세의 갈림길):
+- Visual Concept: A person at age ${item.age} facing life dilemma, futuristic HUD showing AI advice '${rec}' vs actual human choice '${choice}'.
+- Voiceover (나레이션): "${item.age}세, AI는 ${rec}을(를) 권했지만 나는 ${choice}을(를) 선택했습니다."
+- On-Screen Text: "AI: ${rec} ➔ MY CHOICE: ${choice}"`;
+    }).join('\n\n');
+
+    const prompt = `[Google Vids AI Video Generation Prompt]
+
+🎯 Video Title: "AI의 극효율 알고리즘 vs 나의 인생 선택" (My AI Life Story)
+📐 Aspect Ratio: 9:16 Vertical (Shorts/Reels)
+🎵 Tone & Style: Inspiring, Cinematic, Modern Tech with warm emotional soundtrack
+
+🎬 Storyboard & Scenes:
+
+Scene 1 (00:00 - 00:05 | Hook):
+- Visual Concept: Rapid montage of life choices, glowing AI hologram interface vs human heartbeat.
+- Voiceover (나레이션): "AI가 인생의 모든 정답을 알려준다면, 당신은 그 말을 따르시겠습니까?"
+- On-Screen Text: "AI의 극효율 인생 vs 나의 선택"
+
+${scenesText}
+
+Scene ${timeline.length + 2} (결말 & 회고):
+- Visual Concept: Dual radar chart comparing My Life vs AI Life, transitioning to an inspiring sunset and character smile.
+- Voiceover (나레이션): "${story ? story.conclusion : '그리고 수십 년 뒤, 나의 선택들이 만들어낸 또 하나의 인생이 완성되었습니다.'}"
+- On-Screen Text: "효율과 행복은 결코 같은 단어가 아니었다."
+
+Scene ${timeline.length + 3} (Outro & CTA):
+- Visual Concept: MY AI LIFE logo and interactive life simulation invitation.
+- Voiceover (나레이션): "AI의 극효율 인생 vs 나의 선택. 당신이라면 어떤 삶을 사시겠습니까?"
+- On-Screen Text: "MY AI LIFE | 나만의 인생을 시뮬레이션하세요"`;
+
+    return prompt;
   }
 
   /**
