@@ -1,4 +1,4 @@
-[Uploading index.html…]()
+
 # My AI Life (나의 AI 인생 시뮬레이터)
 
 
